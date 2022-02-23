@@ -28,6 +28,20 @@ enum Buttons: String {
     case power = "^"
     case dot = "."
     case percentage = "%"
+    
+    var buttonColor: Color {
+        switch self {
+        case .addition, .subtraction, .mutliply, .divide, .power, .percentage:
+            return .teal
+        case .equal:
+            return .orange
+        case .allClear:
+            return .blue
+        default:
+            return Color(UIColor(red: 0.2156, green: 0.2156, blue: 0.2156, alpha: 1))
+        }
+    }
+
 }
 
 struct ContentView: View {
@@ -66,7 +80,7 @@ struct ContentView: View {
                                         width: self.buttonWidth(item: item),
                                         height: self.buttonHeight()
                                     )
-                                    .background(Color.teal)
+                                    .background(item.buttonColor)
                                     .foregroundColor(.white)
                                     .cornerRadius(self.buttonWidth(item: item)/2)
                             })
