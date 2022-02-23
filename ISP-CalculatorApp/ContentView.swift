@@ -50,7 +50,7 @@ enum Buttons: String {
 }
 
 enum Operation {
-    case addition, subtraction, multiply, divide, none
+    case addition, subtraction, multiply, divide, percentage, none
 }
 
 struct ContentView: View {
@@ -113,7 +113,7 @@ struct ContentView: View {
     //Button functions
     func didTap(button: Buttons) {
         switch button {
-        case .addition, .subtraction, .mutliply, .divide, .power, .equal:
+        case .addition, .subtraction, .mutliply, .divide, .power, .equal, .percentage:
             if button == .addition {
                 self.currentOperation = .addition
                 self.runningNumber = Int(self.value) ?? 0
@@ -130,6 +130,10 @@ struct ContentView: View {
                 self.currentOperation = .divide
                 self.runningNumber = Int(self.value) ?? 0
             }
+            else if button == .percentage {
+                self.currentOperation = .percentage
+                self.runningNumber = Int(self.value) ?? 0
+            }
             else if button == .equal {
                 let runningValue = self.runningNumber
                 let currentValue = Int(self.value) ?? 0
@@ -138,6 +142,7 @@ struct ContentView: View {
                 case .subtraction: self.value = "\(runningValue - currentValue)"
                 case .multiply: self.value = "\(runningValue * currentValue)"
                 case .divide: self.value = "\(runningValue / currentValue)"
+                case .percentage: self.value = "\(runningValue / 100)"
                 case .none:
                     break
                 }
@@ -148,7 +153,7 @@ struct ContentView: View {
             }
         case .allClear:
             self.value = "0"
-        case .dot, .percentage:
+        case .dot:
             break
         default:
             let number = button.rawValue
